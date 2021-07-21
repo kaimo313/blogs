@@ -17,6 +17,16 @@ git add -A
 git commit -m 'depoly脚本更新'
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
-git push -f https://gitee.com/kaimo313/blogs.git master
+# git push -f https://gitee.com/kaimo313/blogs.git master
+
+git config user.name kaimo
+git config user.email 2116437116@qq.com
+
+# 如果发布到 https://<USERNAME>.github.io
+# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
+
+# 如果发布到 https://<USERNAME>.github.io/<REPO>
+# git push -f git@github.com:kaimo313/blog.git master:gh-pages
+git push -f https://github.com/kaimo313/blog.git main:gh-pages
 
 cd -
