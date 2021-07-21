@@ -27,6 +27,6 @@ git config user.email 2116437116@qq.com
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:kaimo313/blog.git master:gh-pages
-git push -f https://github.com/kaimo313/blog.git main:gh-pages
+git push -f https://github.com/kaimo313/kxm-blog.git main:gh-pages
 
 cd -
