@@ -1,9 +1,9 @@
 // friendLink
 module.exports = [
   {
-    "title": "午后南杂",
-    "desc": "Enjoy when you can, and endure when you must.",
-    "link": "https://www.recoluan.com/"
+    "title": "汪图南",
+    "desc": "专注写作前端博客，记录日常所得。",
+    "link": "https://wangtunan.gitee.io/blog/"
   },
   {
     "title": "Evan's blog",

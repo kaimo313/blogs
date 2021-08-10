@@ -1,55 +1,6 @@
 // nav
 module.exports = [
   { text: '首页', link: '/', icon: 'reco-home' },
-  { 
-    text: '前端', 
-    link: '/web/',
-    icon: '',
-    items: [
-      {
-        text: '文档教程',
-        items: [
-          { text: '慕课教程', link: '/web/docs/imooc/wiki/', icon: 'reco-blog' },
-          { text: 'ES6 入门教程', link: '/web/docs/es6/', icon: 'reco-blog' },
-          { text: '网道-JavaScript 教程', link: '/web/docs/wangdoc/javascript/', icon: 'reco-blog' },
-          { text: 'Angular 文档', link: '/web/docs/angular/', icon: 'reco-blog' },
-          { text: 'React 文档', link: '/web/docs/react/', icon: 'reco-blog' },
-          { text: 'Vue 文档', link: '/web/docs/vue/', icon: 'reco-blog' },
-          { text: 'Node 文档', link: '/web/docs/node/', icon: 'reco-blog' },
-          { text: 'Babel 文档', link: '/web/docs/babel/', icon: 'reco-blog' },
-          { text: 'Webpack 文档', link: '/web/docs/webpack/', icon: 'reco-blog' },
-          { text: 'TypeScript 文档', link: '/web/docs/typescript/', icon: 'reco-blog' },
-          { text: '菜鸟教程', link: '/web/docs/runoob/', icon: 'reco-blog' },
-          { text: '印记中文', link: '/web/docs/docschina/', icon: 'reco-blog' },
-        ]
-      },{
-        text: '推荐博客',
-        items: [
-          { text: '阮一峰的个人网站', link: '/web/ruanyifeng/', icon: 'reco-blog' },
-          { text: '廖雪峰的官方网站', link: '/web/liaoxuefeng/', icon: 'reco-blog' },
-        ]
-      },{
-        text: '工具',
-        items: [
-          { text: 'AST Explorer', link: '/web/tools/astexplorer/', icon: 'reco-blog' },
-        ]
-      },
-    ]
-  },
-  { 
-    text: 'Golang', 
-    link: '/golang/', 
-    icon: '',
-    items: [
-      {
-        text: '文档资源',
-        items: [
-          { text: 'Go语言圣经（中文版）', link: '/golang/docs/gopl-zh/', icon: 'reco-blog' },
-          { text: 'Go 语言学习资料', link: '/golang/docs/31de972b403fd/', icon: 'reco-blog' },
-        ]
-      }
-    ]
-  },
   {
     text: '图书馆',
     link: '/library/',
@@ -93,11 +44,6 @@ module.exports = [
     items: [
       {
         text: '昨日',
-        items: [
-          { text: '音乐', link: '/idealism/music/', icon: 'reco-blog' },
-        ]
-      },{
-        text: '明日',
         items: [
           { text: '忧伤的年轻人', link: '/idealism/kaimo/', icon: 'reco-blog' },
         ]

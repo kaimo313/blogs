@@ -12,15 +12,17 @@
         <iframe width="240" scrolling="no" height="70" frameborder="0" allowtransparency="true" src="https://i.tianqi.com?c=code&id=8&color=%233eaf7c&icon=1&site=14"></iframe>
       </div>
       <div class="weather-footer">
-        <div class="tips">🎉🎉🎉欢迎加入微信交流群，添加店长的微信，备注群暗号即可：<b>K1024</b></div>
+        <div class="tips">❤️🎉欢迎交流、关注、赞赏🎉❤️</div>
         <div class="qrcode">
-          <img v-show="isWechat" :src="$withBase('/img/mm_qrcode.png')" alt="微信">
-          <img v-show="!isWechat" :src="$withBase('/img/mm_facetoface_collect_qrcode.png')" alt="微信打赏">
+          <img v-show="toggleType === '1'" :src="$withBase('/img/mm_qrcode.png')" alt="微信">
+          <img v-show="toggleType === '2'" :src="$withBase('/img/qrcode_for_gh.jpg')" alt="公众号">
+          <img v-show="toggleType === '3'" :src="$withBase('/img/mm_facetoface_collect_qrcode.png')" alt="微信打赏">
         </div>
         <div class="toggle-qrcode">
-          <span class="toggle-1" :class="{'actived': isWechat}" @click="toggleQrcode(true)">微信</span>
-          <span class="toggle-2" :class="{'actived': !isWechat}" @click="toggleQrcode(false)">打赏</span>
-          <span class="toggle-bg" :class="{'actived': !isWechat}"></span>
+          <span class="toggle-1" :class="{'actived': toggleType === '1'}" @click="toggleQrcode('1')">微信</span>
+          <span class="toggle-2" :class="{'actived': toggleType === '2'}" @click="toggleQrcode('2')">公众号</span>
+          <span class="toggle-3" :class="{'actived': toggleType === '3'}" @click="toggleQrcode('3')">打赏</span>
+          <span class="toggle-bg" :class="`actived-${toggleType}`"></span>
         </div>
       </div>
     </div>
@@ -37,23 +39,21 @@ export default {
       visible: false,
       title: '消息通知',
       width: '260px',
-      isWechat: true
+      toggleType: '2', // 1:微信 2:公众号 3:打赏
     }
   },
   components: { ModuleTransition, RecoIcon },
   mounted () {
-    const closeKxmWeather = sessionStorage.getItem('closeKxmWeather')
-    this.visible = closeKxmWeather !== 'true'
+    this.visible = true
   },
   methods: {
     // 关闭弹层
     closeKxmWeather () {
       this.visible = false
-      sessionStorage.setItem('closeKxmWeather', 'true')
     },
     // 切换二维码
     toggleQrcode(flag) {
-      this.isWechat = flag;
+      this.toggleType = flag;
     }
   }
 }
@@ -99,6 +99,7 @@ export default {
     padding 10px
     .tips
       font-size 14px
+      text-align center
       b
         color $accentColor
     .qrcode
@@ -121,17 +122,24 @@ export default {
         cursor pointer
         border-radius 50%
         transition .4s
+        user-select none
         &.toggle-1
-          left 60px
+          left 20px
         &.toggle-2
-          left 130px
+          left 90px
+        &.toggle-3
+          left 160px
         &.toggle-bg
-          left 60px
+          left 20px
           z-index -1
           background-color $accentColor
           box-shadow var(--box-shadow)
-          &.actived
-            left 130px
+          &.actived-1
+            left 20px
+          &.actived-2
+            left 90px
+          &.actived-3
+            left 160px
         &.actived 
           color #fff !important
 </style>

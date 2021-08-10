@@ -19,7 +19,7 @@
     <Footer />
 
     <!-- 消息通知 -->
-    <KxmWeather v-if="$frontmatter.home"/>
+    <KxmWeather/>
   </Common>
 </template>
 
