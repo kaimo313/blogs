@@ -54,6 +54,7 @@ import PageEdit from '@theme/components/PageEdit.vue'
 import PageNav from '@theme/components/PageNav.vue'
 import ArticleInfo from './ArticleInfo.vue'
 import Catalogue from './Catalogue.vue'
+import WriterWorkPage from './WriterWorkPage.vue'
 import UpdateArticle from './UpdateArticle.vue'
 import RightMenu from './RightMenu.vue'
 import TitleBadgeMixin from '../mixins/titleBadge'
@@ -67,7 +68,7 @@ export default {
     }
   },
   props: ['sidebarItems'],
-  components: { PageEdit, PageNav, ArticleInfo, Catalogue, UpdateArticle, RightMenu, ModuleTransition },
+  components: { PageEdit, PageNav, ArticleInfo, Catalogue, WriterWorkPage, UpdateArticle, RightMenu, ModuleTransition },
   created () {
     this.updateBarConfig = this.$themeConfig.updateBar
   },

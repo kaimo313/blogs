@@ -1,40 +1,26 @@
 // nav
 module.exports = [
   { text: '首页', link: '/', icon: 'reco-home' },
+  { 
+    text: '百年孤独', 
+    link: '/loneliness/', 
+    icon: '',
+    items: [
+      { text: '鲁迅', link: '/loneliness/2c16dfdd186c9/', icon: 'reco-blog' },
+    ]
+  },
   {
     text: '图书馆',
     link: '/library/',
     icon: '',
     items: [
-      {
-        text: '太易',
-        items: [
-          { text: '时间地图', link: '/library/map/', icon: 'reco-blog' },
-        ]
-      },{
-        text: '太初',
-        items: [
-          { text: '中文维基百科', link: '/library/wiki/', icon: 'reco-blog' },
-        ]
-      },{
-        text: '太始',
-        items: [
-          { text: '世界数字图书馆', link: '/library/wdl/', icon: 'reco-blog' },
-        ]
-      },{
-        text: '太素',
-        items: [
-          { text: '豆瓣榜单', link: '/library/douban/', icon: 'reco-blog' },
-          { text: '网易公开课', link: '/library/open163/', icon: 'reco-blog' },
-        ]
-      },{
-        text: '太极',
-        items: [
-          { text: '中华诗词', link: '/library/shici/', icon: 'reco-blog' },
-          { text: 'ProcessOn图形化知识资源', link: '/library/processon/', icon: 'reco-blog' },
-        ]
-      },
-      
+      { text: '时间地图', link: '/library/map/', icon: 'reco-blog' },
+      { text: '中文维基百科', link: '/library/wiki/', icon: 'reco-blog' },
+      { text: '世界数字图书馆', link: '/library/wdl/', icon: 'reco-blog' },
+      { text: '豆瓣榜单', link: '/library/douban/', icon: 'reco-blog' },
+      { text: '网易公开课', link: '/library/open163/', icon: 'reco-blog' },
+      { text: '中华诗词', link: '/library/shici/', icon: 'reco-blog' },
+      { text: 'ProcessOn图形化知识资源', link: '/library/processon/', icon: 'reco-blog' },      
     ]
   },
   { 
@@ -42,12 +28,7 @@ module.exports = [
     link: '/idealism/', 
     icon: '',
     items: [
-      {
-        text: '昨日',
-        items: [
-          { text: '忧伤的年轻人', link: '/idealism/kaimo/', icon: 'reco-blog' },
-        ]
-      },
+      { text: '忧伤的年轻人', link: '/idealism/kaimo/', icon: 'reco-blog' },
     ]
   },
   {
