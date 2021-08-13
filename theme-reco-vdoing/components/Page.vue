@@ -6,9 +6,7 @@
           <ArticleInfo v-if="isArticle()" />
         </ModuleTransition>
 
-        <ModuleTransition delay="0.08">
-          <component v-if="pageComponent" class="theme-vdoing-content" :is="pageComponent"/>
-        </ModuleTransition>
+        <component v-if="pageComponent" class="theme-vdoing-content" :is="pageComponent"/>
 
         <div class="content-wrapper">
           <ModuleTransition delay="0.16">

@@ -21,7 +21,8 @@
   <div class="book-list-wrapper">
     <div class="title">代表作品</div>
     <div class="content">
-      <div class="list-item" v-for="(item, index) in writerData.bookList" :key="index" :title="item.details">
+      <div class="list-item" v-for="(item, index) in writerData.bookList" :key="index" 
+        @click="handleDetails(item.title, item.details)" :title="item.title">
         <div class="url">
           <img :src="`https://images.weserv.nl/?url=${item.url}`" alt="">
         </div>
@@ -29,6 +30,19 @@
       </div>
     </div>
   </div>
+  <!-- 详情页弹层 -->
+  <div v-if="visibleBookDetails" class="writer-book-details-wrapper">
+    <div class="writer-book-details-box">
+      <div class="title">《{{bookTitle}}》</div>
+      <div class="close" @click="handleClose"></div>
+      <div class="tips-name">内容简介</div>
+      <div class="content">
+        {{bookDetails || "暂无简介"}}
+      </div>
+    </div>
+  </div>
+  <!-- modal层 -->
+  <div v-if="visibleBookDetails" class="km-modal"></div>
 </div>
 </template>
 
@@ -36,20 +50,16 @@
 export default {
   data () {
     return {
+      bookTitle: "", // 书本名
+      bookDetails: "", // 书本简介
       writerData: null,
+      visibleBookDetails: false, // 是否显示书籍详情
     }
   },
   created () {
     this.getPageData()
   },
   methods: {
-    getImage(url){
-      console.log(url);
-      // 把现在的图片连接传进来，返回一个不受限制的路径
-      if(url !== undefined){
-          return url.replace(/^(http)[s]*(\:\/\/)/,'https://images.weserv.nl/?url=');
-      }
-    },
     getPageData () {
       const pageComponent = this.$frontmatter.pageComponent
       if (pageComponent && pageComponent.data) {
@@ -63,6 +73,16 @@ export default {
         console.error('请在front matter中设置pageComponent和pageComponent.data数据')
       }
     },
+    // 打开详情
+    handleDetails(title, details) {
+      this.visibleBookDetails = true;
+      this.bookTitle = title;
+      this.bookDetails = details;
+    },
+    // 关闭事件
+    handleClose() {
+      this.visibleBookDetails = false;
+    }
   },
 }
 </script>
@@ -128,4 +148,84 @@ export default {
           font-size 1rem
           font-weight: 400;
           color: #060;
+.writer-book-details-wrapper
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index 666
+  &::after
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+  .writer-book-details-box
+    position relative
+    display: inline-block;
+    width: 26.25rem;
+    padding 1.25rem 1rem .625rem
+    vertical-align: middle;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ebeef5;
+    font-size: 18px;
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .2);
+    text-align: left;
+    overflow: hidden;
+    backface-visibility: hidden;
+    .title
+      font-size 1.25rem
+      font-weight: bold;
+      color: #060;
+    .close 
+      position absolute
+      top .625rem
+      right .625rem
+      width 1.25rem
+      height 1.25rem
+      border-radius 50%
+      background-color #060
+      transform: rotate(45deg);
+      cursor pointer
+      &::before
+        content ""
+        position absolute
+        top .5625rem
+        left .25rem
+        width .75rem
+        height 2px
+        background-color #fff
+      &::after
+        content ""
+        position absolute
+        top .25rem
+        left .5625rem
+        width 2px
+        height .75rem
+        background-color #fff
+    .tips-name
+      text-align center
+      font-size 1rem
+      font-weight: bold;
+      color: #060;
+      margin-top .625rem
+    .content 
+      font-size 1rem
+      word-wrap: break-word;
+      white-space: pre-wrap
+      line-height: 1.5rem;
+      max-height 25rem
+      overflow auto
+.km-modal
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+  background: #000;
+  z-index 555
 </style>
