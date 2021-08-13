@@ -14,13 +14,13 @@
   </div>
   <div class="writer-description">
     <div class="title">作者简介</div>
-    <div class="content">
+    <div class="writer-content">
       {{writerData.description || '暂无简介'}}
     </div>
   </div>
   <div class="book-list-wrapper">
     <div class="title">代表作品</div>
-    <div class="content">
+    <div class="writer-content">
       <div class="list-item" v-for="(item, index) in writerData.bookList" :key="index" 
         @click="handleDetails(item.title, item.details)" :title="item.title">
         <div class="url">
@@ -36,7 +36,7 @@
       <div class="title">《{{bookTitle}}》</div>
       <div class="close" @click="handleClose"></div>
       <div class="tips-name">内容简介</div>
-      <div class="content">
+      <div class="writer-content">
         {{bookDetails || "暂无简介"}}
       </div>
     </div>
@@ -124,7 +124,7 @@ export default {
       font-weight: bold;
       color: #060;
       margin-bottom .625rem
-    .content 
+    .writer-content 
       font-size 1rem
       word-wrap: break-word;
       white-space: pre-wrap
@@ -135,7 +135,7 @@ export default {
       font-weight: bold;
       color: #060;
       margin-bottom 1.25rem
-    .content
+    .writer-content
       .list-item
         display inline-block
         margin-right 1.25rem
@@ -213,7 +213,7 @@ export default {
       font-weight: bold;
       color: #060;
       margin-top .625rem
-    .content 
+    .writer-content 
       font-size 1rem
       word-wrap: break-word;
       white-space: pre-wrap
