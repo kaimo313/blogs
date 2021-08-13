@@ -31,7 +31,7 @@
     </div>
   </div>
   <!-- 详情页弹层 -->
-  <div v-if="visibleBookDetails" class="writer-book-details-wrapper">
+  <div v-if="visibleBookDetails" class="writer-book-details-wrapper" @click="handleClose">
     <div class="writer-book-details-box">
       <div class="title">《{{bookTitle}}》</div>
       <div class="close" @click="handleClose"></div>
@@ -166,6 +166,7 @@ export default {
     position relative
     display: inline-block;
     width: 26.25rem;
+    max-width 80%
     padding 1.25rem 1rem .625rem
     vertical-align: middle;
     background-color: #fff;
