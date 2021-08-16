@@ -1,5 +1,5 @@
 <template>
-  <ModuleTransition delay="0.5">
+  <ModuleTransition delay="0.16">
     <div v-if="visible" class="kxm-weather-wrapper" :style="{ width }">
       <h4 class="weather-title">
         <RecoIcon icon="reco-tongzhi"/>

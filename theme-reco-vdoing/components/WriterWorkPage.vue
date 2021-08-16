@@ -24,20 +24,34 @@
       <div class="list-item" v-for="(item, index) in writerData.bookList" :key="index" 
         @click="handleDetails(item.title, item.details)" :title="item.title">
         <div class="url">
-          <img :src="`https://images.weserv.nl/?url=${item.url}`" alt="">
+          <img :src="`https://images.weserv.nl/?url=${item.url}`" :alt="item.title" @load="successLoadImg" @error="errorLoadImg"/>
         </div>
         <div class="title">{{item.title}}</div>
       </div>
     </div>
   </div>
   <!-- 详情页弹层 -->
-  <div v-if="visibleBookDetails" class="writer-book-details-wrapper" @click="handleClose">
+  <div v-if="visibleBookDetails" class="writer-book-details-wrapper">
     <div class="writer-book-details-box">
       <div class="title">《{{bookTitle}}》</div>
       <div class="close" @click="handleClose"></div>
-      <div class="tips-name">内容简介</div>
+      <div class="tips-name">
+        <div :class="{actived: activeName === '1'}">目录</div>
+        <div :class="{actived: activeName === '2'}">内容简介</div>
+        <div :class="{actived: activeName === '3'}">书评</div>
+      </div>
       <div class="writer-content">
-        {{bookDetails || "暂无简介"}}
+        <div class="content-list">
+          <template>
+            {{bookMenu || "暂无目录"}}
+          </template>
+          <template>
+            {{bookDetails || "暂无简介"}}
+          </template>
+          <template>
+            {{bookComments || "暂无书评"}}
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -54,6 +68,7 @@ export default {
       bookDetails: "", // 书本简介
       writerData: null,
       visibleBookDetails: false, // 是否显示书籍详情
+      activeName: "1"
     }
   },
   created () {
@@ -67,7 +82,7 @@ export default {
           title: this.$frontmatter.title,
           ...pageComponent.data,
           description: pageComponent.description,
-          bookList: pageComponent.bookList
+          bookList: require(`../../docs/.vuepress/config/bookList/${pageComponent.bookList}`)
         }
       } else {
         console.error('请在front matter中设置pageComponent和pageComponent.data数据')
@@ -82,6 +97,14 @@ export default {
     // 关闭事件
     handleClose() {
       this.visibleBookDetails = false;
+    },
+    successLoadImg(event) {
+      if (event.target.complete === true) {
+        event.target.classList.remove("default-image");
+      }
+    },
+    errorLoadImg(event) {
+      event.target.classList.add("default-image");
     }
   },
 }
@@ -94,7 +117,7 @@ export default {
     word-wrap: break-word;
     display: block;
     font-weight: bold;
-    color: #060;
+    color: #3eaf7c;
     margin: 0;
     padding: 0 0 15px 0;
     line-height: 1.1;
@@ -122,7 +145,7 @@ export default {
     .title
       font-size 1.25rem
       font-weight: bold;
-      color: #060;
+      color: #3eaf7c;
       margin-bottom .625rem
     .writer-content 
       font-size 1rem
@@ -133,7 +156,7 @@ export default {
     .title
       font-size 1.25rem
       font-weight: bold;
-      color: #060;
+      color: #3eaf7c;
       margin-bottom 1.25rem
     .writer-content
       .list-item
@@ -147,14 +170,15 @@ export default {
           text-align center
           font-size 1rem
           font-weight: 400;
-          color: #060;
+          color: #3eaf7c;
 .writer-book-details-wrapper
   position: fixed;
-  top: 0;
+  top: 3.6rem;
   bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
+  height calc(100% - 3.6rem)
   z-index 666
   &::after
     content: "";
@@ -169,18 +193,18 @@ export default {
     max-width 80%
     padding 1.25rem 1rem .625rem
     vertical-align: middle;
-    background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ebeef5;
     font-size: 18px;
-    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .2);
     text-align: left;
     overflow: hidden;
     backface-visibility: hidden;
+    box-shadow: var(--box-shadow);
+    background: var(--background-color);
     .title
       font-size 1.25rem
       font-weight: bold;
-      color: #060;
+      color: #3eaf7c;
     .close 
       position absolute
       top .625rem
@@ -188,7 +212,7 @@ export default {
       width 1.25rem
       height 1.25rem
       border-radius 50%
-      background-color #060
+      background-color #3eaf7c
       transform: rotate(45deg);
       cursor pointer
       &::before
@@ -208,11 +232,20 @@ export default {
         height .75rem
         background-color #fff
     .tips-name
-      text-align center
-      font-size 1rem
-      font-weight: bold;
-      color: #060;
+      display flex
+      justify-content space-between
+      padding 0 2.5rem
       margin-top .625rem
+      div
+        text-align center
+        font-size 1rem
+        font-weight: bold;
+        color: #3eaf7c;
+        padding 0 .3125rem
+        border-radius .25rem
+        &.actived
+          background-color #3eaf7c;
+          color #fff
     .writer-content 
       font-size 1rem
       word-wrap: break-word;
