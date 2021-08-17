@@ -22,7 +22,7 @@
     <div class="title">代表作品</div>
     <div class="writer-content">
       <div class="list-item" v-for="(item, index) in writerData.bookList" :key="index" 
-        @click="handleDetails(item.title, item.details)" :title="item.title">
+        @click="handleDetails(item)" :title="item.title">
         <div class="url">
           <img :src="`https://images.weserv.nl/?url=${item.url}`" :alt="item.title" @load="successLoadImg" @error="errorLoadImg"/>
         </div>
@@ -36,20 +36,35 @@
       <div class="title">《{{bookTitle}}》</div>
       <div class="close" @click="handleClose"></div>
       <div class="tips-name">
-        <div :class="{actived: activeName === '1'}">目录</div>
-        <div :class="{actived: activeName === '2'}">内容简介</div>
-        <div :class="{actived: activeName === '3'}">书评</div>
+        <div :class="{actived: activeName === '1'}" @click="handleActiveName('1')">目录</div>
+        <div :class="{actived: activeName === '2'}" @click="handleActiveName('2')">内容简介</div>
+        <div :class="{actived: activeName === '3'}" @click="handleActiveName('3')">书评</div>
       </div>
       <div class="writer-content">
         <div class="content-list">
-          <template>
-            {{bookMenu || "暂无目录"}}
+          <template v-if="activeName === '1'">
+            <template v-if="bookMenu && bookMenu.length > 0">
+              <div v-for="(item, index) in bookMenu" :key="index" class="list-item">
+                {{item}}
+              </div>
+            </template>
+            <div v-else class="no-data">暂无目录</div>
           </template>
-          <template>
-            {{bookDetails || "暂无简介"}}
+          <template v-if="activeName === '2'">
+            <template v-if="bookDetails && bookDetails.length > 0">
+              <div v-for="(item, index) in bookDetails" :key="index" class="list-item">
+                {{item}}
+              </div>
+            </template>
+            <div v-else class="no-data">暂无简介</div>
           </template>
-          <template>
-            {{bookComments || "暂无书评"}}
+          <template v-if="activeName === '3'">
+            <template v-if="bookComments && bookComments.length > 0">
+              <div v-for="(item, index) in bookComments" :key="index" class="list-item">
+                {{item}}
+              </div>
+            </template>
+            <div v-else class="no-data">暂无书评</div>
           </template>
         </div>
       </div>
@@ -65,10 +80,12 @@ export default {
   data () {
     return {
       bookTitle: "", // 书本名
-      bookDetails: "", // 书本简介
+      bookMenu: [], // 书本目录
+      bookDetails: [], // 书本内容简介
+      bookComments: [], // 书本书评
       writerData: null,
       visibleBookDetails: false, // 是否显示书籍详情
-      activeName: "1"
+      activeName: "2", // 当前激活目录
     }
   },
   created () {
@@ -89,20 +106,32 @@ export default {
       }
     },
     // 打开详情
-    handleDetails(title, details) {
+    handleDetails(item) {
       this.visibleBookDetails = true;
-      this.bookTitle = title;
-      this.bookDetails = details;
+      this.activeName = '2';
+      this.bookTitle = item.title;
+      this.bookMenu = item.menu;
+      this.bookDetails = item.details;
+      this.bookComments = item.comments;
+      // 对html页面滚动处理
+      document.children[0].style.overflow = "hidden";
     },
     // 关闭事件
     handleClose() {
       this.visibleBookDetails = false;
+      document.children[0].style.overflow = "auto";
     },
+    // 切换目录
+    handleActiveName(type) {
+      this.activeName = type;
+    },
+    // 图片成功
     successLoadImg(event) {
       if (event.target.complete === true) {
         event.target.classList.remove("default-image");
       }
     },
+    // 图片失败
     errorLoadImg(event) {
       event.target.classList.add("default-image");
     }
@@ -189,7 +218,8 @@ export default {
   .writer-book-details-box
     position relative
     display: inline-block;
-    width: 26.25rem;
+    width: 28.125rem;
+    height 80%
     max-width 80%
     padding 1.25rem 1rem .625rem
     vertical-align: middle;
@@ -235,24 +265,33 @@ export default {
       display flex
       justify-content space-between
       padding 0 2.5rem
-      margin-top .625rem
+      margin .625rem 0 1.25rem
       div
         text-align center
         font-size 1rem
         font-weight: bold;
         color: #3eaf7c;
-        padding 0 .3125rem
+        padding .25rem .75rem
         border-radius .25rem
+        cursor pointer
         &.actived
           background-color #3eaf7c;
           color #fff
     .writer-content 
       font-size 1rem
       word-wrap: break-word;
-      white-space: pre-wrap
       line-height: 1.5rem;
-      max-height 25rem
+      max-height calc(100% - 6rem)
       overflow auto
+      .content-list
+        .list-item
+          text-indent 2rem
+          word-spacing .25rem
+          letter-spacing .0625rem
+          margin-bottom .625rem
+        .no-data
+          text-align center
+          margin-top 6.25rem
 .km-modal
   position: fixed;
   left: 0;
