@@ -15,7 +15,12 @@
   <div class="writer-description">
     <div class="title">作者简介</div>
     <div class="writer-content">
-      {{writerData.description || '暂无简介'}}
+      <template v-if="writerData.description && writerData.description.length > 0">
+        <div v-for="(item, index) in writerData.description" :key="index" class="list-item">
+          {{item}}
+        </div>
+      </template>
+      <div v-else class="no-data">暂无简介</div>
     </div>
   </div>
   <div class="book-list-wrapper">
@@ -38,7 +43,7 @@
       <div class="tips-name">
         <div :class="{actived: activeName === '1'}" @click="handleActiveName('1')">目录</div>
         <div :class="{actived: activeName === '2'}" @click="handleActiveName('2')">内容简介</div>
-        <div :class="{actived: activeName === '3'}" @click="handleActiveName('3')">书评</div>
+        <div :class="{actived: activeName === '3'}" @click="handleActiveName('3')">原文摘录</div>
       </div>
       <div class="writer-content">
         <div class="content-list">
@@ -59,12 +64,12 @@
             <div v-else class="no-data">暂无简介</div>
           </template>
           <template v-if="activeName === '3'">
-            <template v-if="bookComments && bookComments.length > 0">
-              <div v-for="(item, index) in bookComments" :key="index" class="list-item">
+            <template v-if="originalExcerpt && originalExcerpt.length > 0">
+              <div v-for="(item, index) in originalExcerpt" :key="index" class="list-item">
                 {{item}}
               </div>
             </template>
-            <div v-else class="no-data">暂无书评</div>
+            <div v-else class="no-data">暂无原文摘录</div>
           </template>
         </div>
       </div>
@@ -82,7 +87,7 @@ export default {
       bookTitle: "", // 书本名
       bookMenu: [], // 书本目录
       bookDetails: [], // 书本内容简介
-      bookComments: [], // 书本书评
+      originalExcerpt: [], // 书本原文摘录
       writerData: null,
       visibleBookDetails: false, // 是否显示书籍详情
       activeName: "2", // 当前激活目录
@@ -112,7 +117,7 @@ export default {
       this.bookTitle = item.title;
       this.bookMenu = item.menu;
       this.bookDetails = item.details;
-      this.bookComments = item.comments;
+      this.originalExcerpt = item.excerpt;
       // 对html页面滚动处理
       document.children[0].style.overflow = "hidden";
     },
@@ -176,11 +181,18 @@ export default {
       font-weight: bold;
       color: #3eaf7c;
       margin-bottom .625rem
-    .writer-content 
+    .writer-content
       font-size 1rem
       word-wrap: break-word;
-      white-space: pre-wrap
       line-height: 1.5rem;
+      .list-item
+        text-indent 2rem
+        word-spacing .25rem
+        letter-spacing .0625rem
+        margin-bottom .625rem
+        .no-data
+          text-align center
+          margin-top 6.25rem
   .book-list-wrapper
     .title
       font-size 1.25rem
