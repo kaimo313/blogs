@@ -644,16 +644,3 @@ module.exports = [
     ]
   },
 ]
-/**
- {
-    title: "",
-    url: "", 
-    menu: [
-
-    ],
-    details: [
-    ],
-    excerpt: [
-    ]
-  },
- * */ 

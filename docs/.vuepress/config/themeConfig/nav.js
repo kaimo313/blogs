@@ -29,6 +29,7 @@ module.exports = [
     icon: '',
     items: [
       { text: '忧伤的年轻人', link: '/idealism/kaimo/', icon: 'reco-blog' },
+      { text: '诺贝尔文学奖', link: '/nobelprize/literature/', icon: 'reco-blog' },
     ]
   },
   {
@@ -41,7 +42,6 @@ module.exports = [
       { text: '归档', link: '/archives/', icon: 'reco-date' },
     ]
   },
-  { text: '留言板', link: '/bookshop/message-board/', icon: 'reco-suggestion' },
   {
     text: '关于',
     icon: 'reco-message',
@@ -65,6 +65,7 @@ module.exports = [
         items: [
           { text: '资源工具', link: '/resource-tools/', icon: 'reco-document' },
           { text: '友情链接', link: '/bookshop/friendslink/', icon: 'reco-friend' },
+          { text: '留言板', link: '/bookshop/message-board/', icon: 'reco-suggestion' },
         ]
       },
     ]

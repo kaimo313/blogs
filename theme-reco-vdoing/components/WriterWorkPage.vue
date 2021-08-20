@@ -200,13 +200,14 @@ export default {
       color: #3eaf7c;
       margin-bottom 1.25rem
     .writer-content
+      display flex
+      justify-content space-between
+      flex-wrap wrap
       .list-item
-        display inline-block
-        margin-right 1.25rem
         cursor pointer
         .url
           img
-            width 7.1875rem
+            width 6.25rem
         .title
           text-align center
           font-size 1rem
@@ -286,6 +287,7 @@ export default {
         padding .25rem .75rem
         border-radius .25rem
         cursor pointer
+        white-space: nowrap;
         &.actived
           background-color #3eaf7c;
           color #fff
